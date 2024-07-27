@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -29,6 +30,14 @@ require __DIR__.'/auth.php';
 
 // routes/web.php
 Route::get('/staff/pembelian', [PembelianController::class, 'index'])->name('staff.pembelian');
+Route::get('/staff/pembelian/create', [PembelianController::class, 'create'])->name('staff.pembelian.create');
+Route::post('/staff/pembelian/save', [PembelianController::class, 'save'])->name('staff.pembelian.save');
+Route::post('/staff/pembelian/{pembelian}/update-status', [PembelianController::class, 'updateStatus'])->name('staff.pembelian.update-status');
 
-// Route::get('/staff/pembelians/create', [PembelianController::class, 'create'])->name('staff/pembelians/create');
-// Route::post('/staff/pembelians/save', [PembelianController::class, 'save'])->name('staff.pembelians/save');
+Route::get('/manager/users', [UserController::class, 'index'])->name('manager.users');
+
+
+// Route::middleware(['auth', 'can:admin'])->group(function () {
+//     Route::get('/manager/users', [UserController::class, 'index'])->name('manager.users');
+//     Route::delete('/manager/users/{id}', [UserController::class, 'destroy'])->name('manager.users.destroy');
+// });

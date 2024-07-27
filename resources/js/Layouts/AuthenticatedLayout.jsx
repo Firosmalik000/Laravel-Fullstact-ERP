@@ -37,7 +37,22 @@ export default function Authenticated({ user, header, children }) {
                                     Pembelian
                                 </NavLink>
 
-                                <NavLink>Request</NavLink>
+                                <NavLink
+                                    href={route("manager.users")}
+                                    active={route().current("manager.users")}
+                                >
+                                    User
+                                </NavLink>
+                                {/* <NavLink
+                                    href={route(
+                                        "staff.pembelian.update-status"
+                                    )}
+                                    active={route().current(
+                                        "staff.pembelian.update-status"
+                                    )}
+                                >
+                                    Request
+                                </NavLink> */}
                                 <NavLink>Gudang</NavLink>
                                 <NavLink>Report</NavLink>
                             </div>

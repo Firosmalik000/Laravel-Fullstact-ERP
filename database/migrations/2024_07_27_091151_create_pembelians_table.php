@@ -17,10 +17,11 @@ return new class extends Migration
             $table->integer('jumlah')->default(0);
             $table->integer('harga')->default(0);
             $table->integer('total')->default(0);
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');    
+            $table->unsignedBigInteger('request_by');
+            $table->foreign('request_by')->references('id')->on('users')->onDelete('cascade');    
             $table->string('catatan')->nullable();
             $table->string('supplier');
+            $table->string('status')->default('Pending');
             $table->timestamps();
         });
     }
