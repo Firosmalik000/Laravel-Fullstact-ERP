@@ -1,3 +1,5 @@
+// Navbar component
+
 import { useState } from "react";
 import ApplicationLogo from "@/Components/ApplicationLogo";
 import Dropdown from "@/Components/Dropdown";
@@ -29,26 +31,15 @@ export default function Authenticated({ user, header, children }) {
                                     Dashboard
                                 </NavLink>
                                 <NavLink
-
-                                // href={route("dashboard")}
-                                // active={route().current("dashboard")}
+                                    href={route("staff.pembelian")}
+                                    active={route().current("staff.pembelian")}
                                 >
-                                    Request
+                                    Pembelian
                                 </NavLink>
-                                <NavLink
 
-                                // href={route("dashboard")}
-                                // active={route().current("dashboard")}
-                                >
-                                    Gudang
-                                </NavLink>
-                                <NavLink
-
-                                // href={route("dashboard")}
-                                // active={route().current("dashboard")}
-                                >
-                                    Report
-                                </NavLink>
+                                <NavLink>Request</NavLink>
+                                <NavLink>Gudang</NavLink>
+                                <NavLink>Report</NavLink>
                             </div>
                         </div>
 

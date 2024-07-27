@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -25,3 +26,9 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+// routes/web.php
+Route::get('/staff/pembelian', [PembelianController::class, 'index'])->name('staff.pembelian');
+
+// Route::get('/staff/pembelians/create', [PembelianController::class, 'create'])->name('staff/pembelians/create');
+// Route::post('/staff/pembelians/save', [PembelianController::class, 'save'])->name('staff.pembelians/save');
