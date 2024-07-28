@@ -4,6 +4,7 @@ import { Head } from "@inertiajs/react";
 import axios from "axios";
 
 export default function Pembelian({ auth, pembelians }) {
+    console.log({ pembelians });
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -96,7 +97,7 @@ export default function Pembelian({ auth, pembelians }) {
                                                     {beli.supplier}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    {beli.request_by}
+                                                    {beli?.user?.name}
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     {beli.catatan}

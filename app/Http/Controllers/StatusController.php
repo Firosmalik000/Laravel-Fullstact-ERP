@@ -15,7 +15,7 @@ class StatusController extends Controller
 {
     public function index()
     {
-        $status = Status::with('pembelian','user')->orderBy('created_at', 'desc')->get();
+        $status = Status::with('pembelian','user', 'pembelian.user')->orderBy('created_at', 'desc')->get();
         $total = Status::count();
         return Inertia::render('Status', [
             'status' => $status,

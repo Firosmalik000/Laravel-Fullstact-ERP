@@ -2,7 +2,7 @@ import CustomButton from "@/Components/CustomButton";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm } from "@inertiajs/react";
 
-export default function Gudang({ auth, gudang, total }) {
+export default function Gudang({ auth, gudang }) {
     console.log({ gudang });
 
     return (
@@ -46,6 +46,12 @@ export default function Gudang({ auth, gudang, total }) {
                                                 scope="col"
                                                 className="px-6 py-3"
                                             >
+                                                Accepted By
+                                            </th>
+                                            <th
+                                                scope="col"
+                                                className="px-6 py-3"
+                                            >
                                                 Action
                                             </th>
                                         </tr>
@@ -55,7 +61,8 @@ export default function Gudang({ auth, gudang, total }) {
                                             <tr
                                                 key={gdg.id}
                                                 className={`hover:bg-gray-100 ${
-                                                    gdg.status === "Accepted"
+                                                    gdg.status.status ===
+                                                    "Accepted"
                                                         ? "bg-green-200"
                                                         : gdg.status ===
                                                           "Rejected"
@@ -73,7 +80,10 @@ export default function Gudang({ auth, gudang, total }) {
                                                     {gdg.status_id}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    {gdg.status}
+                                                    {gdg.status.status}
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    {gdg.status?.user?.name}
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     <div className="flex gap-x-2 justify-center">

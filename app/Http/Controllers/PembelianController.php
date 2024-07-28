@@ -12,7 +12,7 @@ use Inertia\Inertia;
 class PembelianController extends Controller
 {
     public function index(){
-        $pembelians = Pembelian::orderBy('created_at', 'desc')->get();
+        $pembelians = Pembelian::with('user')->orderBy('created_at', 'desc')->get();
         $total = Pembelian::count();
         return Inertia::render('staff/Pembelian', [
             'pembelians' => $pembelians

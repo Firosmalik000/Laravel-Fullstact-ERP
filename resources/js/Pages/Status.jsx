@@ -1,18 +1,20 @@
 import CustomButton from "@/Components/CustomButton";
+import DetailStatus from "@/Components/Table/DetailStatus";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm } from "@inertiajs/react";
+import { useState, useEffect } from "react";
 
 export default function Status({ auth, status }) {
     const { setData, post } = useForm({
         status: "",
     });
+    const [detail, setDetail] = useState(null);
 
     const handleStatusChange = (id, newStatus) => {
         setData("status", newStatus);
         post(route("status.update-status", id), {
             onSuccess: (response) => {
                 console.log("Status updated successfully:", response);
-
                 window.location.reload();
             },
             onError: (errors) => {
@@ -20,7 +22,15 @@ export default function Status({ auth, status }) {
             },
         });
     };
+
+    const handleRowClick = (pembelian) => {
+        console.log("Row clicked, pembelian data:", pembelian);
+        setDetail(pembelian);
+    };
     console.log({ status });
+    useEffect(() => {
+        console.log("Detail updated:", detail);
+    }, [detail]);
 
     return (
         <AuthenticatedLayout
@@ -32,7 +42,6 @@ export default function Status({ auth, status }) {
             }
         >
             <Head title="Status" />
-
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -51,7 +60,7 @@ export default function Status({ auth, status }) {
                                                 scope="col"
                                                 className="px-6 py-3"
                                             >
-                                                Pembelian
+                                                Pembelian ID
                                             </th>
                                             <th
                                                 scope="col"
@@ -76,6 +85,9 @@ export default function Status({ auth, status }) {
                                     <tbody>
                                         {status?.map((sty, index) => (
                                             <tr
+                                                onClick={() =>
+                                                    handleRowClick(sty)
+                                                }
                                                 key={sty.id}
                                                 className={`hover:bg-gray-100 ${
                                                     sty.status === "Accepted"
@@ -134,6 +146,20 @@ export default function Status({ auth, status }) {
                                         ))}
                                     </tbody>
                                 </table>
+
+                                {detail && (
+                                    <>
+                                        <div className="my-5">
+                                            <h1 className="font-semibold text-xl">
+                                                Detail Pembelian
+                                            </h1>
+                                        </div>
+                                        <DetailStatus
+                                            items={detail.pembelian}
+                                            user={detail.user}
+                                        />
+                                    </>
+                                )}
                             </div>
                         </div>
                     </div>
