@@ -9,15 +9,6 @@ Teknologi yang Digunakan
 Fullstack: Laravel
 Database: sqLite
 Alat lain: Vite, tailwind CSS, chartjs, breeze dll
-Prasyarat
-Pastikan Anda memiliki perangkat lunak berikut yang terinstal di sistem Anda:
-
-
-Instalasi dan Pengaturan
-Ikuti langkah-langkah di bawah ini untuk menginstal dan menjalankan proyek di lingkungan lokal Anda:
-
-Clone repositori:
-git clone https://github.com/username/repository.git
 
 Instal dependensi :
 cd laravel-fullstack-erp
