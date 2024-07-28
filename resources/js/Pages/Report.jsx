@@ -19,7 +19,7 @@ export default function Report({ auth, report }) {
         const data = report.map((gdg) => ({
             created_at:
                 gdg?.status?.created_at || gdg?.gudang?.status?.created_at,
-            product:
+            material:
                 gdg?.status?.pembelian.nama ||
                 gdg?.gudang?.status?.pembelian.nama,
             jumlah:
