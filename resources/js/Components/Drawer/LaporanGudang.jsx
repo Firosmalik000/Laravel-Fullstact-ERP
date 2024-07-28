@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import CustomInput from "../CustomInput";
 import { useForm } from "@inertiajs/react";
+import { ImCross } from "react-icons/im";
 
 const LaporanGudang = ({ open, setOpen, gudang }) => {
     const { data, setData, post, errors, reset } = useForm({
@@ -44,7 +45,7 @@ const LaporanGudang = ({ open, setOpen, gudang }) => {
                     className="text-red-500 hover:text-red-700 text-4xl"
                     onClick={() => setOpen(false)}
                 >
-                    x
+                    <ImCross className="text-xl" />
                 </button>
             </div>
             <hr />

@@ -26,10 +26,11 @@ export default function Status({ auth, status }) {
         });
     };
 
-    const handleRowClick = (pembelian) => {
-        console.log("Row clicked, pembelian data:", pembelian);
+    const handleDetailClick = (pembelian) => {
+        console.log("Detail button clicked, pembelian data:", pembelian);
         setDetail(pembelian);
     };
+
     console.log({ status });
     useEffect(() => {
         console.log("Detail updated:", detail);
@@ -91,9 +92,6 @@ export default function Status({ auth, status }) {
                                     <tbody>
                                         {status?.map((sty, index) => (
                                             <tr
-                                                onClick={() =>
-                                                    handleRowClick(sty)
-                                                }
                                                 key={sty.id}
                                                 className={`hover:bg-gray-100 ${
                                                     sty.status === "Accepted"
@@ -122,43 +120,46 @@ export default function Status({ auth, status }) {
                                                 {auth.user.role ===
                                                     "manager" && (
                                                     <td className="px-6 py-4">
-                                                        {sty.status ===
-                                                        "Pending" ? (
-                                                            <div className="flex gap-x-2 justify-center">
-                                                                {auth.user
-                                                                    .role ===
-                                                                    "manager" && (
-                                                                    <>
-                                                                        <CustomButton
-                                                                            title={
-                                                                                <FaCheck />
-                                                                            }
-                                                                            className="bg-green-500 text-white px-2 py-1 rounded-[10px] transition duration-300 hover:bg-green-700"
-                                                                            onClick={() =>
-                                                                                handleStatusChange(
-                                                                                    sty.id,
-                                                                                    "Accepted"
-                                                                                )
-                                                                            }
-                                                                        />
-                                                                        <CustomButton
-                                                                            title={
-                                                                                <ImCross />
-                                                                            }
-                                                                            className="bg-red-500 text-white px-2 py-1 rounded-[10px] transition duration-300 hover:bg-red-700"
-                                                                            onClick={() =>
-                                                                                handleStatusChange(
-                                                                                    sty.id,
-                                                                                    "Rejected"
-                                                                                )
-                                                                            }
-                                                                        />
-                                                                    </>
-                                                                )}
-                                                            </div>
-                                                        ) : (
-                                                            "-"
-                                                        )}
+                                                        <div className="flex gap-x-2 justify-center">
+                                                            <CustomButton
+                                                                title={"Detail"}
+                                                                className="bg-blue-500 text-white px-2 py-1 rounded-[10px] transition duration-300 hover:bg-blue-700"
+                                                                onClick={() =>
+                                                                    handleDetailClick(
+                                                                        sty
+                                                                    )
+                                                                }
+                                                            />
+                                                            {sty.status ===
+                                                                "Pending" && (
+                                                                <>
+                                                                    <CustomButton
+                                                                        title={
+                                                                            <FaCheck />
+                                                                        }
+                                                                        className="bg-green-500 text-white px-2 py-1 rounded-[10px] transition duration-300 hover:bg-green-700"
+                                                                        onClick={() =>
+                                                                            handleStatusChange(
+                                                                                sty.id,
+                                                                                "Accepted"
+                                                                            )
+                                                                        }
+                                                                    />
+                                                                    <CustomButton
+                                                                        title={
+                                                                            <ImCross />
+                                                                        }
+                                                                        className="bg-red-500 text-white px-2 py-1 rounded-[10px] transition duration-300 hover:bg-red-700"
+                                                                        onClick={() =>
+                                                                            handleStatusChange(
+                                                                                sty.id,
+                                                                                "Rejected"
+                                                                            )
+                                                                        }
+                                                                    />
+                                                                </>
+                                                            )}
+                                                        </div>
                                                     </td>
                                                 )}
                                             </tr>

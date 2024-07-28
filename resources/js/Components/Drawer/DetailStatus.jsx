@@ -1,5 +1,6 @@
 import React from "react";
 import CustomDetailField from "../CustomDetailField";
+import { ImCross } from "react-icons/im";
 
 const DetailStatus = ({ items, user, onClose }) => {
     console.log("DetailStatus received items:", user);
@@ -16,7 +17,7 @@ const DetailStatus = ({ items, user, onClose }) => {
                     className="text-red-500 hover:text-red-700 text-4xl"
                     onClick={onClose}
                 >
-                    x
+                    <ImCross className="text-xl" />
                 </button>
             </div>
             <hr />
