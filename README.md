@@ -1,4 +1,7 @@
 README
+
+
+
 Deskripsi
 Proyek ini adalah aplikasi ERP yang dibuat untuk Mengelola management pembelian dan gudang. Proyek ini menggunakan Laravel untuk menyajikan fungsionalitas dan antarmuka pengguna.
 
