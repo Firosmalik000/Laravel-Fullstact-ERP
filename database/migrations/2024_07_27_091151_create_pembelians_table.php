@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('request_by');
             $table->foreign('request_by')->references('id')->on('users')->onDelete('cascade');    
             $table->string('catatan')->nullable();
+            $table->string('riwayat')->nullable();
             $table->string('supplier');
             $table->timestamps();
         });

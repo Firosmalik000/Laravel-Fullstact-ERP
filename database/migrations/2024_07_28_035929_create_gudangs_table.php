@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('gudangs', function (Blueprint $table) {
             $table->id();
+            $table->string('nama')->nullable();
+            $table->string('code')->nullable();
+            $table->date('kedatangan')->nullable();
+            $table->string('lokasi')->nullable();
+            $table->string('kondisi')->nullable();
+            $table->string('catatan')->nullable();
             $table->string('status');
             $table->unsignedBigInteger('status_id');
             $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade'); 

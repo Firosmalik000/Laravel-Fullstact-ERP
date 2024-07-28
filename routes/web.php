@@ -38,6 +38,10 @@ Route::middleware(['auth', 'managerMiddleware'])->group(function () {
 });
 Route::middleware(['auth', 'managerBMiddleware'])->group(function () {
     Route::get('/gudang', [GudangController::class, 'index'])->name('gudang');
+    Route::get('gudang/{id}', [GudangController::class, 'getGudang'])->name('gudang.detail');
+    Route::match(['put', 'post'], 'gudang/update-gudang/{id}', [GudangController::class, 'updateGudang'])->name('gudang.update-gudang');
+
+    
 
 });
 

@@ -70,6 +70,12 @@ export default function Pembelian({ auth, pembelians }) {
                                                 scope="col"
                                                 className="px-6 py-3"
                                             >
+                                                Riwayat
+                                            </th>
+                                            <th
+                                                scope="col"
+                                                className="px-6 py-3"
+                                            >
                                                 Catatan
                                             </th>
                                         </tr>
@@ -97,6 +103,9 @@ export default function Pembelian({ auth, pembelians }) {
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     {beli?.user?.name}
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    {beli.riwayat}
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     {beli.catatan}

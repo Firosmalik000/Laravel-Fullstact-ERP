@@ -33,6 +33,7 @@ class PembelianController extends Controller
             'total' => 'required|integer',
             'catatan' => 'nullable|string|max:255',
             'supplier' => 'required|string|max:255',
+            'riwayat' => 'required|string|max:255',
         ]);
     
         DB::beginTransaction(); // Memulai transaksi
@@ -46,6 +47,7 @@ class PembelianController extends Controller
                 'request_by' => Auth::id(),
                 'catatan' => $request->catatan,
                 'supplier' => $request->supplier,
+                'riwayat' => $request->riwayat,
             ]);
     
             Status::create([
@@ -62,20 +64,5 @@ class PembelianController extends Controller
             return redirect()->route('staff.pembelian.create');
         }
     }
-
-
-//     public function updateStatus(Request $request, Pembelian $pembelian)
-//     {
-//         $request->validate([
-//             'status' => 'required|string|in:Accepted,Rejected',
-//         ]);
-
-//         $pembelian->update([
-//             'status' => $request->status,
-//         ]);
-
-//         session()->flash('success', 'Status Pembelian Berhasil Diubah');
-//         return redirect()->route('staff.pembelian');
-//     }
     
 }

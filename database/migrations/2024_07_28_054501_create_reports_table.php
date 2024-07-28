@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->string('status');
-            $table->unsignedBigInteger('status_id');
+            $table->string('status')->nullable();
+            $table->unsignedBigInteger('status_id')->nullable();
             $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade'); 
+            $table->unsignedBigInteger('gudang_id')->nullable();
+            $table->foreign('gudang_id')->references('id')->on('gudangs')->onDelete('cascade'); 
             $table->timestamps();
         });
     }

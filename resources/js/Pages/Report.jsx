@@ -1,6 +1,9 @@
+import React, { useState } from "react";
+import { saveAs } from "file-saver";
+import Papa from "papaparse";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+
 import { Head } from "@inertiajs/react";
-import { useState, useEffect } from "react";
 
 export default function Report({ auth, report }) {
     const [detail, setDetail] = useState(null);
@@ -12,9 +15,40 @@ export default function Report({ auth, report }) {
 
     console.log({ report });
 
-    useEffect(() => {
-        console.log("Detail updated:", detail);
-    }, [detail]);
+    const generateCSV = () => {
+        const data = report.map((gdg) => ({
+            created_at:
+                gdg?.status?.created_at || gdg?.gudang?.status?.created_at,
+            product:
+                gdg?.status?.pembelian.nama ||
+                gdg?.gudang?.status?.pembelian.nama,
+            jumlah:
+                gdg?.status?.pembelian.jumlah ||
+                gdg?.gudang?.status?.pembelian.jumlah,
+            harga:
+                gdg?.status?.pembelian.harga ||
+                gdg?.gudang?.status?.pembelian.harga,
+            total:
+                gdg?.status?.pembelian.total ||
+                gdg?.gudang?.status?.pembelian.total,
+            supplier:
+                gdg?.status?.pembelian.supplier ||
+                gdg?.gudang?.status?.pembelian.supplier,
+            request_by:
+                gdg?.status?.pembelian?.user?.name ||
+                gdg?.gudang?.status?.pembelian?.user?.name,
+            authorize_by:
+                gdg?.status?.user?.name || gdg?.gudang?.status?.user?.name,
+            status: gdg?.status?.status || gdg?.gudang?.status?.status,
+            catatan:
+                gdg?.status?.pembelian.catatan ||
+                gdg?.gudang?.status?.pembelian.catatan,
+        }));
+
+        const csv = Papa.unparse(data);
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        saveAs(blob, "report.csv");
+    };
 
     return (
         <AuthenticatedLayout
@@ -44,49 +78,37 @@ export default function Report({ auth, report }) {
                                                 scope="col"
                                                 className="px-6 py-3"
                                             >
-                                                Product
+                                                ID Pembelian
                                             </th>
                                             <th
                                                 scope="col"
                                                 className="px-6 py-3"
                                             >
-                                                Jumlah
+                                                Nama
                                             </th>
                                             <th
                                                 scope="col"
                                                 className="px-6 py-3"
                                             >
-                                                Harga
+                                                Code
                                             </th>
                                             <th
                                                 scope="col"
                                                 className="px-6 py-3"
                                             >
-                                                Total
+                                                Kondisi
                                             </th>
                                             <th
                                                 scope="col"
                                                 className="px-6 py-3"
                                             >
-                                                Supplier
+                                                Lokasi
                                             </th>
                                             <th
                                                 scope="col"
                                                 className="px-6 py-3"
                                             >
-                                                Request By
-                                            </th>{" "}
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3"
-                                            >
-                                                Authorize By
-                                            </th>
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3"
-                                            >
-                                                status
+                                                Kedatangan
                                             </th>
                                             <th
                                                 scope="col"
@@ -100,75 +122,65 @@ export default function Report({ auth, report }) {
                                         {report?.map((gdg, index) => (
                                             <tr
                                                 onClick={() =>
-                                                    handleRowClick(gdg.status)
+                                                    handleRowClick(gdg?.status)
                                                 }
-                                                key={gdg.id}
+                                                key={gdg?.id}
                                                 className={`hover:bg-gray-100 ${
-                                                    gdg.status.status ===
+                                                    gdg?.status?.status ===
                                                     "Accepted"
                                                         ? "bg-green-200"
-                                                        : gdg.status.status ===
+                                                        : gdg?.status
+                                                              ?.status ===
                                                           "Rejected"
                                                         ? "bg-red-200"
-                                                        : gdg.status.status ===
+                                                        : gdg?.status
+                                                              ?.status ===
                                                           "Pending"
                                                         ? "bg-yellow-200"
                                                         : "bg-gray-100"
                                                 }`}
                                             >
                                                 <td className="px-6 py-4">
-                                                    {gdg.status?.created_at}
+                                                    {gdg?.status?.created_at ??
+                                                        gdg?.gudang?.status
+                                                            ?.created_at}
+                                                </td>
+
+                                                <td className="px-6 py-4">
+                                                    {gdg?.status?.pembelian_id
+                                                        ?.catatan ??
+                                                        gdg?.gudang?.status
+                                                            ?.pembelian_id}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    {gdg.status?.pembelian.nama}
+                                                    {gdg?.gudang?.nama}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    {
-                                                        gdg.status?.pembelian
-                                                            .jumlah
-                                                    }
+                                                    {gdg?.gudang?.code}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    {
-                                                        gdg.status?.pembelian
-                                                            .harga
-                                                    }
+                                                    {gdg?.gudang?.kondisi}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    {
-                                                        gdg.status?.pembelian
-                                                            .total
-                                                    }
+                                                    {gdg?.gudang?.lokasi}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    {
-                                                        gdg.status?.pembelian
-                                                            .supplier
-                                                    }
+                                                    {gdg?.gudang?.kedatangan}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    {
-                                                        gdg.status.pembelian
-                                                            ?.user?.name
-                                                    }
-                                                </td>
-                                                <td className="px-6 py-4">
-                                                    {gdg.status?.user?.name}
-                                                </td>
-                                                <td className="px-6 py-4">
-                                                    {gdg.status.status}
-                                                </td>
-                                                <td className="px-6 py-4">
-                                                    {
-                                                        gdg.status.pembelian
-                                                            .catatan
-                                                    }
+                                                    {gdg?.gudang?.catatan}
                                                 </td>
                                             </tr>
                                         ))}
                                     </tbody>
                                 </table>
                             </div>
+                            <button
+                                onClick={generateCSV}
+                                className="mt-4 px-4 py-2 bg-blue-600 text-white rounded"
+                            >
+                                Download Data Pembelian
+                            </button>
                         </div>
                     </div>
                 </div>

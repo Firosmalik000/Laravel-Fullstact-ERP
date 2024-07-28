@@ -26,6 +26,7 @@ const DetailStatus = ({ items, user, onClose }) => {
             <CustomDetailField label={"Total"} value={items?.total} />
             <CustomDetailField label={"Supplier"} value={items?.supplier} />
             <CustomDetailField label={"Request By"} value={user?.name} />
+            <CustomDetailField label={"Riwayat"} value={items?.riwayat} />
             <CustomDetailField label={"Catatan"} value={items?.catatan} />
         </div>
     );

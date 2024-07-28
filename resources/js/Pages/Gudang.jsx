@@ -1,10 +1,24 @@
 import CustomButton from "@/Components/CustomButton";
+import LaporanGudang from "@/Components/Drawer/LaporanGudang";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, useForm } from "@inertiajs/react";
+import { Head } from "@inertiajs/react";
+import { useState } from "react";
+import axios from "axios";
 
 export default function Gudang({ auth, gudang }) {
-    console.log({ gudang });
+    const [open, setOpen] = useState(false);
+    const [selectedGudang, setSelectedGudang] = useState(null);
 
+    const handleRowClick = async (id) => {
+        try {
+            const response = await axios.get(`/gudang/${id}`);
+            setSelectedGudang(response.data);
+            setOpen(true);
+        } catch (error) {
+            console.error("Error fetching gudang details:", error);
+        }
+    };
+    console.log({ gudang });
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -64,10 +78,10 @@ export default function Gudang({ auth, gudang }) {
                                                     gdg.status.status ===
                                                     "Accepted"
                                                         ? "bg-green-200"
-                                                        : gdg.status ===
+                                                        : gdg.status.status ===
                                                           "Rejected"
                                                         ? "bg-red-200"
-                                                        : gdg.status ===
+                                                        : gdg.status.status ===
                                                           "Pending"
                                                         ? "bg-yellow-200"
                                                         : "bg-gray-100"
@@ -85,16 +99,35 @@ export default function Gudang({ auth, gudang }) {
                                                 <td className="px-6 py-4">
                                                     {gdg.status?.user?.name}
                                                 </td>
+
                                                 <td className="px-6 py-4">
-                                                    <div className="flex gap-x-2 justify-center">
-                                                        Print
-                                                    </div>
+                                                    {console.log(
+                                                        `gdg.gudang for gdg id ${gdg.id}:`,
+                                                        gdg.gudang
+                                                    )}
+                                                    {gdg && gdg.code ? (
+                                                        <>-</>
+                                                    ) : (
+                                                        <CustomButton
+                                                            title="Lapor Kedatangan"
+                                                            onClick={() =>
+                                                                handleRowClick(
+                                                                    gdg.id
+                                                                )
+                                                            }
+                                                        />
+                                                    )}
                                                 </td>
                                             </tr>
                                         ))}
                                     </tbody>
                                 </table>
                             </div>
+                            <LaporanGudang
+                                open={open}
+                                setOpen={setOpen}
+                                gudang={selectedGudang}
+                            />
                         </div>
                     </div>
                 </div>

@@ -50,7 +50,7 @@ class StatusController extends Controller
                 ]);
             }
 
-            if ($status->status == 'Rejected' || $status->status == 'Accepted') {
+            if ($status->status == 'Rejected') {
                 Report::create([
                     'status' => $request->status,
                     'status_id' => $status->id

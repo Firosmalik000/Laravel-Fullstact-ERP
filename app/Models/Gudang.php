@@ -11,7 +11,7 @@ class Gudang extends Model
     use HasFactory;
     protected $table = 'gudangs';
     protected $fillable = [
-        'status_id', 'status', 
+        'status_id', 'status', 'nama', 'code', 'kedatangan', 'lokasi', 'kondisi', 'catatan',
     ];
 
     public function status(): BelongsTo

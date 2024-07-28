@@ -12,11 +12,17 @@ class Report extends Model
 
     protected $table = 'reports';
     protected $fillable = [
-        'status_id', 'status', 
+        'status_id', 'status', 'gudang_id'
     ];
     
     public function status(): BelongsTo
 {
     return $this->belongsTo(Status::class, 'status_id');
 }
+    public function gudang(): BelongsTo
+{
+    return $this->belongsTo(Gudang::class, 'gudang_id');
+}
+
+
 }

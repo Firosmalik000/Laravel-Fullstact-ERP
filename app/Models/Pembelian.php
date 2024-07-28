@@ -10,7 +10,7 @@ class Pembelian extends Model
 {
     use HasFactory;
     protected $table = 'pembelians';
-    protected $fillable = ['nama', 'jumlah', 'harga', 'total', 'request_by', 'catatan', 'supplier'];
+    protected $fillable = ['nama', 'jumlah', 'harga', 'total', 'request_by', 'catatan', 'supplier', 'riwayat'];
     
     public function user(): BelongsTo
 {

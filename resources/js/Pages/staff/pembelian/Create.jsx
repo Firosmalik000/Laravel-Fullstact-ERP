@@ -10,12 +10,15 @@ const Create = ({ auth }) => {
         total: "",
         catatan: "",
         supplier: "",
+        riwayat: "",
     });
 
     const handleSubmit = (e) => {
         e.preventDefault();
         post(route("staff.pembelian.save"));
     };
+    const classnameInput =
+        "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-opacity-50";
 
     return (
         <AuthenticatedLayout
@@ -39,7 +42,7 @@ const Create = ({ auth }) => {
                             >
                                 <div className="col-span-1">
                                     <label className="block text-sm font-medium text-gray-700">
-                                        Product
+                                        Material
                                     </label>
                                     <input
                                         type="text"
@@ -48,7 +51,7 @@ const Create = ({ auth }) => {
                                         onChange={(e) =>
                                             setData("nama", e.target.value)
                                         }
-                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-opacity-50"
+                                        className={classnameInput}
                                     />
                                     {errors.nama && (
                                         <span className="text-red-500 text-sm">
@@ -67,7 +70,7 @@ const Create = ({ auth }) => {
                                         onChange={(e) =>
                                             setData("jumlah", e.target.value)
                                         }
-                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-opacity-50"
+                                        className={classnameInput}
                                     />
                                     {errors.jumlah && (
                                         <span className="text-red-500 text-sm">
@@ -86,7 +89,7 @@ const Create = ({ auth }) => {
                                         onChange={(e) =>
                                             setData("harga", e.target.value)
                                         }
-                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-opacity-50"
+                                        className={classnameInput}
                                     />
                                     {errors.harga && (
                                         <span className="text-red-500 text-sm">
@@ -105,7 +108,7 @@ const Create = ({ auth }) => {
                                         onChange={(e) =>
                                             setData("total", e.target.value)
                                         }
-                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-opacity-50"
+                                        className={classnameInput}
                                     />
                                     {errors.total && (
                                         <span className="text-red-500 text-sm">
@@ -113,6 +116,27 @@ const Create = ({ auth }) => {
                                         </span>
                                     )}
                                 </div>
+
+                                <div className="col-span-1">
+                                    <label className="block text-sm font-medium text-gray-700">
+                                        Riwayat
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="riwayat"
+                                        value={data.riwayat}
+                                        onChange={(e) =>
+                                            setData("riwayat", e.target.value)
+                                        }
+                                        className={classnameInput}
+                                    />
+                                    {errors.riwayat && (
+                                        <span className="text-red-500 text-sm">
+                                            {errors.riwayat}
+                                        </span>
+                                    )}
+                                </div>
+
                                 <div className="col-span-1">
                                     <label className="block text-sm font-medium text-gray-700">
                                         Catatan
@@ -124,7 +148,7 @@ const Create = ({ auth }) => {
                                         onChange={(e) =>
                                             setData("catatan", e.target.value)
                                         }
-                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-opacity-50"
+                                        className={classnameInput}
                                     />
                                     {errors.catatan && (
                                         <span className="text-red-500 text-sm">
@@ -143,7 +167,7 @@ const Create = ({ auth }) => {
                                         onChange={(e) =>
                                             setData("supplier", e.target.value)
                                         }
-                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-opacity-50"
+                                        className={classnameInput}
                                     />
                                     {errors.supplier && (
                                         <span className="text-red-500 text-sm">
