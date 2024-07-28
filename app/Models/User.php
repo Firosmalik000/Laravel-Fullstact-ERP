@@ -53,4 +53,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Pembelian::class);
     }
+    public function statuses(): HasMany
+    {
+        return $this->hasMany(Status::class);
+    }
 }

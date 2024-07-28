@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pembelian;
+use App\Models\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class PembelianController extends Controller
@@ -23,49 +25,57 @@ class PembelianController extends Controller
     }
 
     public function save(Request $request)
-{
-    $request->validate([
-        'nama' => 'required|string|max:255',
-        'jumlah' => 'required|integer',
-        'harga' => 'required|integer',
-        'total' => 'required|integer',
-        'catatan' => 'nullable|string|max:255',
-        'supplier' => 'required|string|max:255',
-    ]);
-
-    $data = Pembelian::create([
-        'nama' => $request->nama,
-        'jumlah' => $request->jumlah,
-        'harga' => $request->harga,
-        'total' => $request->total,
-        'request_by' => Auth::id(),  // Pastikan ID pengguna yang sedang login diisi di sini
-        'catatan' => $request->catatan,
-        'supplier' => $request->supplier,
-        'status' => 'Pending', 
-    ]);
-
-    if($data) {
-        session()->flash('success', 'Data Berhasil Tersimpan');
-        return redirect()->route('staff.pembelian');
-    } else {
-        session()->flash('error', 'Data Gagal Tersimpan');
-        return redirect()->route('staff.pembelian.create');
-    }
-}
-
-
-    public function updateStatus(Request $request, Pembelian $pembelian)
     {
         $request->validate([
-            'status' => 'required|string|in:Accepted,Rejected',
+            'nama' => 'required|string|max:255',
+            'jumlah' => 'required|integer',
+            'harga' => 'required|integer',
+            'total' => 'required|integer',
+            'catatan' => 'nullable|string|max:255',
+            'supplier' => 'required|string|max:255',
         ]);
-
-        $pembelian->update([
-            'status' => $request->status,
-        ]);
-
-        session()->flash('success', 'Status Pembelian Berhasil Diubah');
-        return redirect()->route('staff.pembelian');
+    
+        DB::beginTransaction(); // Memulai transaksi
+    
+        try {
+            $pembelian = Pembelian::create([
+                'nama' => $request->nama,
+                'jumlah' => $request->jumlah,
+                'harga' => $request->harga,
+                'total' => $request->total,
+                'request_by' => Auth::id(),
+                'catatan' => $request->catatan,
+                'supplier' => $request->supplier,
+            ]);
+    
+            Status::create([
+                'pembelian_id' => $pembelian->id, 
+            ]);
+    
+            DB::commit(); 
+    
+            session()->flash('success', 'Data Berhasil Tersimpan');
+            return redirect()->route('staff.pembelian');
+        } catch (\Exception $e) {
+            DB::rollBack(); // Membatalkan transaksi jika ada kesalahan
+            session()->flash('error', 'Data Gagal Tersimpan: ' . $e->getMessage());
+            return redirect()->route('staff.pembelian.create');
+        }
     }
+
+
+//     public function updateStatus(Request $request, Pembelian $pembelian)
+//     {
+//         $request->validate([
+//             'status' => 'required|string|in:Accepted,Rejected',
+//         ]);
+
+//         $pembelian->update([
+//             'status' => $request->status,
+//         ]);
+
+//         session()->flash('success', 'Status Pembelian Berhasil Diubah');
+//         return redirect()->route('staff.pembelian');
+//     }
     
 }

@@ -21,7 +21,6 @@ return new class extends Migration
             $table->foreign('request_by')->references('id')->on('users')->onDelete('cascade');    
             $table->string('catatan')->nullable();
             $table->string('supplier');
-            $table->string('status')->default('Pending');
             $table->timestamps();
         });
     }

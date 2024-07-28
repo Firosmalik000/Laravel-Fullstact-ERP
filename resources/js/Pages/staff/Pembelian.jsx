@@ -5,7 +5,7 @@ import axios from "axios";
 
 import Permintaan from "./pembelian/Permintaan";
 
-export default function Pembelian({ auth, pembelians, users }) {
+export default function Pembelian({ auth, pembelians }) {
     return (
         <AuthenticatedLayout
             user={auth.user}

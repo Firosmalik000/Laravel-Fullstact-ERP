@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\GudangController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -32,10 +34,13 @@ require __DIR__.'/auth.php';
 Route::get('/staff/pembelian', [PembelianController::class, 'index'])->name('staff.pembelian');
 Route::get('/staff/pembelian/create', [PembelianController::class, 'create'])->name('staff.pembelian.create');
 Route::post('/staff/pembelian/save', [PembelianController::class, 'save'])->name('staff.pembelian.save');
-Route::post('/staff/pembelian/{pembelian}/update-status', [PembelianController::class, 'updateStatus'])->name('staff.pembelian.update-status');
 
 Route::get('/manager/users', [UserController::class, 'index'])->name('manager.users');
 
+Route::get('/status', [StatusController::class, 'index'])->name('status');
+Route::post('status/update-status/{id}', [StatusController::class, 'updateStatus'])->name('status.update-status');
+
+Route::get('/gudang', [GudangController::class, 'index'])->name('gudang');
 
 // Route::middleware(['auth', 'can:admin'])->group(function () {
 //     Route::get('/manager/users', [UserController::class, 'index'])->name('manager.users');

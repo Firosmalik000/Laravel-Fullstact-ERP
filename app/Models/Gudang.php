@@ -6,14 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Pembelian extends Model
+class Gudang extends Model
 {
     use HasFactory;
-    protected $table = 'pembelians';
-    protected $fillable = ['nama', 'jumlah', 'harga', 'total', 'request_by', 'catatan', 'supplier'];
-    
+    protected $table = 'gudangs';
+    protected $fillable = [
+        'status_id', 'status', 
+    ];
+
     public function user(): BelongsTo
 {
-    return $this->belongsTo(User::class, 'request_by');
+    return $this->belongsTo(Status::class, 'status_id');
 }
 }
