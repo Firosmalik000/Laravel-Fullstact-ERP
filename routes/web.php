@@ -35,6 +35,7 @@ require __DIR__.'/auth.php';
 // Manager Area
 Route::middleware(['auth', 'managerMiddleware'])->group(function () {
     Route::get('/manager/users', [UserController::class, 'index'])->name('manager.users');
+   
 });
 Route::middleware(['auth', 'managerBMiddleware'])->group(function () {
     Route::get('/gudang', [GudangController::class, 'index'])->name('gudang');

@@ -20,8 +20,10 @@
         "vite": "^5.0"
     },
     "dependencies": {
+        "chart.js": "^4.4.3",
         "file-saver": "^2.0.5",
         "json2csv": "^6.0.0-alpha.2",
-        "papaparse": "^5.4.1"
+        "papaparse": "^5.4.1",
+        "react-chartjs-2": "^5.2.0"
     }
 }

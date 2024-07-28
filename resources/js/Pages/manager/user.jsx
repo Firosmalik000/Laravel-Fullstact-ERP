@@ -64,16 +64,9 @@ export default function User({ auth, users }) {
                                                     {user.email}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    {user.role}
+                                                    {user.role} -{" "}
+                                                    {user.sub_role}
                                                 </td>
-                                                {/* <td className="px-6 py-4 text-right">
-                        <button className="bg-yellow-300 text-white px-2 py-1 rounded-[10px] transition duration-300 hover:bg-yellow-500">
-                            Edit
-                        </button>
-                        <button className="bg-red-500 text-white px-2 py-1 rounded-[10px] transition duration-300 hover:bg-red-700">
-                            Delete
-                        </button>
-                    </td> */}
                                             </tr>
                                         ))}
                                     </tbody>
