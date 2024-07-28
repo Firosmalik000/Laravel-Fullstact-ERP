@@ -3,8 +3,6 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import axios from "axios";
 
-import Permintaan from "./pembelian/Permintaan";
-
 export default function Pembelian({ auth, pembelians }) {
     return (
         <AuthenticatedLayout
@@ -28,58 +26,88 @@ export default function Pembelian({ auth, pembelians }) {
                                     className="bg-blue-500 text-white px-4 py-2 rounded"
                                 />
                             </div>
-                            <table className="w-full border border-3">
-                                <thead className="bg-gray-100">
-                                    <tr>
-                                        <th className="px-3 py-2">Name</th>
-                                        <th className="px-3 py-2">Jumlah</th>
-                                        <th className="px-3 py-2">Harga</th>
-                                        <th className="px-3 py-2">Total</th>
-                                        <th className="px-3 py-2">Supplier</th>
-                                        <th className="px-3 py-2">
-                                            Request By
-                                        </th>
-                                        <th className="px-3 py-2">status</th>
-                                        <th className="px-3 py-2">Catatan</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {pembelians.map((beli) => (
-                                        <tr
-                                            key={beli.id}
-                                            className="hover:bg-gray-50"
-                                        >
-                                            <td className="px-3 py-2">
-                                                {beli.nama}
-                                            </td>
-                                            <td className="px-3 py-2">
-                                                {beli.jumlah}
-                                            </td>
-                                            <td className="px-3 py-2">
-                                                {beli.harga}
-                                            </td>
-                                            <td className="px-3 py-2">
-                                                {beli.total}
-                                            </td>
-                                            <td className="px-3 py-2">
-                                                {beli.supplier}
-                                            </td>
-                                            <td className="px-3 py-2">
-                                                {beli.request_by}
-                                            </td>
-                                            <td className="px-3 py-2">
-                                                {beli.status}
-                                            </td>
-                                            <td className="px-3 py-2">
-                                                {beli.catatan}
-                                            </td>
+                            <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                                <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+                                    <thead className="text-xs text-white uppercase bg-indigo-600">
+                                        <tr>
+                                            <th
+                                                scope="col"
+                                                className="px-6 py-3"
+                                            >
+                                                Name
+                                            </th>
+                                            <th
+                                                scope="col"
+                                                className="px-6 py-3"
+                                            >
+                                                Jumlah
+                                            </th>
+                                            <th
+                                                scope="col"
+                                                className="px-6 py-3"
+                                            >
+                                                Harga
+                                            </th>
+                                            <th
+                                                scope="col"
+                                                className="px-6 py-3"
+                                            >
+                                                Total
+                                            </th>
+                                            <th
+                                                scope="col"
+                                                className="px-6 py-3"
+                                            >
+                                                Supplier
+                                            </th>
+                                            <th
+                                                scope="col"
+                                                className="px-6 py-3"
+                                            >
+                                                Request By
+                                            </th>
+                                            <th
+                                                scope="col"
+                                                className="px-6 py-3"
+                                            >
+                                                Catatan
+                                            </th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        {pembelians.map((beli) => (
+                                            <tr
+                                                key={beli.id}
+                                                className="bg-white border-b hover:bg-gray-100"
+                                            >
+                                                <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                                    {beli.nama}
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    {beli.jumlah}
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    {beli.harga}
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    {beli.total}
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    {beli.supplier}
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    {beli.request_by}
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    {beli.catatan}
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                    <Permintaan pembelians={pembelians} />
                 </div>
             </div>
         </AuthenticatedLayout>

@@ -3,17 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gudang;
+use App\Models\Report;
 use App\Models\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class StatusController extends Controller
 {
     public function index()
     {
-        $status = Status::orderBy('created_at', 'desc')->get();
+        $status = Status::with('pembelian','user')->orderBy('created_at', 'desc')->get();
         $total = Status::count();
         return Inertia::render('Status', [
             'status' => $status,
@@ -33,10 +35,20 @@ class StatusController extends Controller
         try {
             $status->update([
                 'status' => $request->status,
+                'updated_by' => Auth::id(),
             ]);
 
+          
             if ($status->status == 'Accepted') {
                 Gudang::create([
+                    'status' => $request->status,
+                    'status_id' => $status->id
+                ]);
+            }
+
+      
+            if ($status->status == 'Rejected' || $status->status == 'Accepted') {
+                Report::create([
                     'status' => $request->status,
                     'status_id' => $status->id
                 ]);

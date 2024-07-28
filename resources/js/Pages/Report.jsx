@@ -1,17 +1,19 @@
+import CustomButton from "@/Components/CustomButton";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
+import { Head, useForm } from "@inertiajs/react";
 
-export default function User({ auth, users }) {
+export default function Report({ auth, report }) {
+    console.log({ report });
     return (
         <AuthenticatedLayout
             user={auth.user}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    User List
+                    Laporan
                 </h2>
             }
         >
-            <Head title="Users" />
+            <Head title="Report" />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -31,49 +33,52 @@ export default function User({ auth, users }) {
                                                 scope="col"
                                                 className="px-6 py-3"
                                             >
-                                                Name
+                                                Pembelian
                                             </th>
                                             <th
                                                 scope="col"
                                                 className="px-6 py-3"
                                             >
-                                                Email
+                                                Status
                                             </th>
                                             <th
                                                 scope="col"
                                                 className="px-6 py-3"
                                             >
-                                                Role
+                                                Action
                                             </th>
-                                            {/* <th scope="col" className="px-6 py-3">Action</th> */}
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {users.map((user, index) => (
+                                        {report?.map((gdg, index) => (
                                             <tr
-                                                key={user.id}
-                                                className="bg-white border-b hover:bg-gray-100"
+                                                key={gdg.id}
+                                                className={`hover:bg-gray-100 ${
+                                                    gdg.status === "Accepted"
+                                                        ? "bg-green-200"
+                                                        : gdg.status ===
+                                                          "Rejected"
+                                                        ? "bg-red-200"
+                                                        : gdg.status ===
+                                                          "Pending"
+                                                        ? "bg-yellow-200"
+                                                        : "bg-gray-100"
+                                                }`}
                                             >
                                                 <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                                     {index + 1}
                                                 </th>
                                                 <td className="px-6 py-4">
-                                                    {user.name}
+                                                    {gdg.status_id}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    {user.email}
+                                                    {gdg.status}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    {user.role}
+                                                    <div className="flex gap-x-2 justify-center">
+                                                        Print
+                                                    </div>
                                                 </td>
-                                                {/* <td className="px-6 py-4 text-right">
-                        <button className="bg-yellow-300 text-white px-2 py-1 rounded-[10px] transition duration-300 hover:bg-yellow-500">
-                            Edit
-                        </button>
-                        <button className="bg-red-500 text-white px-2 py-1 rounded-[10px] transition duration-300 hover:bg-red-700">
-                            Delete
-                        </button>
-                    </td> */}
                                             </tr>
                                         ))}
                                     </tbody>

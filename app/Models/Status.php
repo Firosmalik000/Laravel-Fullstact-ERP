@@ -14,6 +14,11 @@ class Status extends Model
         'pembelian_id', 'status', 'updated_by'
     ];
     
+    public function pembelian(): BelongsTo
+    {
+        return $this->belongsTo(Pembelian::class, 'pembelian_id');
+    }
+
     public function user(): BelongsTo
 {
     return $this->belongsTo(User::class, 'updated_by');

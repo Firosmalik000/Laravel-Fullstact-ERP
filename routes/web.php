@@ -3,6 +3,7 @@
 use App\Http\Controllers\GudangController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
@@ -41,6 +42,8 @@ Route::get('/status', [StatusController::class, 'index'])->name('status');
 Route::post('status/update-status/{id}', [StatusController::class, 'updateStatus'])->name('status.update-status');
 
 Route::get('/gudang', [GudangController::class, 'index'])->name('gudang');
+
+Route::get('/report', [ReportController::class, 'index'])->name('report');
 
 // Route::middleware(['auth', 'can:admin'])->group(function () {
 //     Route::get('/manager/users', [UserController::class, 'index'])->name('manager.users');
