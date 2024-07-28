@@ -12,6 +12,7 @@ export default function Status({ auth, status }) {
         status: "",
     });
     const [detail, setDetail] = useState(null);
+    const [open, setOpen] = useState(false);
 
     const handleStatusChange = (id, newStatus) => {
         setData("status", newStatus);
@@ -29,6 +30,7 @@ export default function Status({ auth, status }) {
     const handleDetailClick = (pembelian) => {
         console.log("Detail button clicked, pembelian data:", pembelian);
         setDetail(pembelian);
+        setOpen(true);
     };
 
     console.log({ status });
@@ -168,13 +170,12 @@ export default function Status({ auth, status }) {
                                 </table>
 
                                 {detail && (
-                                    <>
-                                        <DetailStatus
-                                            items={detail.pembelian}
-                                            user={detail.pembelian.user}
-                                            onClose={() => setDetail(null)}
-                                        />
-                                    </>
+                                    <DetailStatus
+                                        items={detail.pembelian}
+                                        user={detail.pembelian.user}
+                                        open={open}
+                                        setOpen={setOpen}
+                                    />
                                 )}
                             </div>
                         </div>
