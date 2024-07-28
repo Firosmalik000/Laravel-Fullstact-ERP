@@ -1,14 +1,15 @@
 {
+    "version": 2,
     "builds": [
         {
-            "src": "package.json",
-            "use": "@vercel/node"
+            "src": "Dockerfile",
+            "use": "@vercel/docker"
         }
     ],
-    "build": {
-        "env": {
-            "LD_LIBRARY_PATH": "/usr/local/lib"
-        },
-        "postBuild": "apt-get update && apt-get install -y libssl-dev"
-    }
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "/index.php"
+        }
+    ]
 }
