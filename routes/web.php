@@ -36,18 +36,17 @@ require __DIR__.'/auth.php';
 Route::middleware(['auth', 'managerMiddleware'])->group(function () {
     Route::get('/manager/users', [UserController::class, 'index'])->name('manager.users');
 });
+Route::middleware(['auth', 'managerBMiddleware'])->group(function () {
+    Route::get('/gudang', [GudangController::class, 'index'])->name('gudang');
 
+});
 
+Route::middleware(['auth', 'staffAMiddleware'])->group(function () {
 Route::get('/staff/pembelian', [PembelianController::class, 'index'])->name('staff.pembelian');
 Route::get('/staff/pembelian/create', [PembelianController::class, 'create'])->name('staff.pembelian.create');
-Route::post('/staff/pembelian/save', [PembelianController::class, 'save'])->name('staff.pembelian.save');
-
-
-
-Route::get('/status', [StatusController::class, 'index'])->name('status');
+Route::post('/staff/pembelian/save', [PembelianController::class, 'save'])->name('staff.pembelian.save');Route::get('/status', [StatusController::class, 'index'])->name('status');
 Route::post('status/update-status/{id}', [StatusController::class, 'updateStatus'])->name('status.update-status');
-
-Route::get('/gudang', [GudangController::class, 'index'])->name('gudang');
+});
 
 Route::get('/report', [ReportController::class, 'index'])->name('report');
 

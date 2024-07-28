@@ -4,10 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class ManagerMiddleware
+class StaffBMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,9 +15,6 @@ class ManagerMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::user()->role != 'manager') {
-            return redirect('dashboard');
-        }
         return $next($request);
     }
 }

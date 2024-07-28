@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class ManagerMiddleware
+class StaffAMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,7 +16,7 @@ class ManagerMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::user()->role != 'manager') {
+        if ((Auth::user()->role != 'manager' || Auth::user()->sub_role != 'a') && (Auth::user()->role != 'staff' || Auth::user()->sub_role != 'a')) {
             return redirect('dashboard');
         }
         return $next($request);
