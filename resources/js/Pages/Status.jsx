@@ -1,5 +1,7 @@
 import CustomButton from "@/Components/CustomButton";
 import DetailStatus from "@/Components/Drawer/DetailStatus";
+import { FaCheck } from "react-icons/fa";
+import { ImCross } from "react-icons/im";
 
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm } from "@inertiajs/react";
@@ -123,26 +125,36 @@ export default function Status({ auth, status }) {
                                                         {sty.status ===
                                                         "Pending" ? (
                                                             <div className="flex gap-x-2 justify-center">
-                                                                <CustomButton
-                                                                    title="Accept"
-                                                                    className="bg-green-500 text-white px-2 py-1 rounded-[10px] transition duration-300 hover:bg-green-700"
-                                                                    onClick={() =>
-                                                                        handleStatusChange(
-                                                                            sty.id,
-                                                                            "Accepted"
-                                                                        )
-                                                                    }
-                                                                />
-                                                                <CustomButton
-                                                                    title="Reject"
-                                                                    className="bg-red-500 text-white px-2 py-1 rounded-[10px] transition duration-300 hover:bg-red-700"
-                                                                    onClick={() =>
-                                                                        handleStatusChange(
-                                                                            sty.id,
-                                                                            "Rejected"
-                                                                        )
-                                                                    }
-                                                                />
+                                                                {auth.user
+                                                                    .role ===
+                                                                    "manager" && (
+                                                                    <>
+                                                                        <CustomButton
+                                                                            title={
+                                                                                <FaCheck />
+                                                                            }
+                                                                            className="bg-green-500 text-white px-2 py-1 rounded-[10px] transition duration-300 hover:bg-green-700"
+                                                                            onClick={() =>
+                                                                                handleStatusChange(
+                                                                                    sty.id,
+                                                                                    "Accepted"
+                                                                                )
+                                                                            }
+                                                                        />
+                                                                        <CustomButton
+                                                                            title={
+                                                                                <ImCross />
+                                                                            }
+                                                                            className="bg-red-500 text-white px-2 py-1 rounded-[10px] transition duration-300 hover:bg-red-700"
+                                                                            onClick={() =>
+                                                                                handleStatusChange(
+                                                                                    sty.id,
+                                                                                    "Rejected"
+                                                                                )
+                                                                            }
+                                                                        />
+                                                                    </>
+                                                                )}
                                                             </div>
                                                         ) : (
                                                             "-"

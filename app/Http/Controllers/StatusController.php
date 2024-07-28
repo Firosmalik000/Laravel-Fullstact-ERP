@@ -50,17 +50,17 @@ class StatusController extends Controller
                 ]);
             }
 
-            if ($status->status == 'Rejected') {
-                Report::create([
-                    'status' => $request->status,
-                    'status_id' => $status->id
-                ]);
-            }
+            
 
             DB::commit();
 
             session()->flash('success', 'Data Berhasil Tersimpan');
-            return redirect()->route('report');
+            if ($status->status == 'Rejected') {
+                 return redirect()->route('status');
+            } else {
+                return redirect()->route('gudang');
+            }
+          
         } catch (Exception $e) {
             DB::rollBack();
             session()->flash('error', 'Status Gagal Diubah: ' . $e->getMessage());

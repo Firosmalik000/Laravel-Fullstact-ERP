@@ -40,14 +40,20 @@ export default function Report({ auth, report }) {
             authorize_by:
                 gdg?.status?.user?.name || gdg?.gudang?.status?.user?.name,
             status: gdg?.status?.status || gdg?.gudang?.status?.status,
-            catatan:
+            catatan_pembelian:
                 gdg?.status?.pembelian.catatan ||
                 gdg?.gudang?.status?.pembelian.catatan,
+            nama_penerima: gdg?.gudang?.nama,
+            code_barang: gdg?.gudang?.code,
+            lokasi_penyimpanan: gdg?.gudang?.lokasi,
+            kedatangan: gdg?.gudang?.kedatangan,
+            kondisi: gdg?.gudang?.kondisi,
+            catatan_gudang: gdg?.gudang?.kedatangan,
         }));
 
         const csv = Papa.unparse(data);
         const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-        saveAs(blob, "report.csv");
+        saveAs(blob, `report/${Date.now()}.csv`);
     };
 
     return (

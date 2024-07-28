@@ -24,6 +24,7 @@
         "file-saver": "^2.0.5",
         "json2csv": "^6.0.0-alpha.2",
         "papaparse": "^5.4.1",
-        "react-chartjs-2": "^5.2.0"
+        "react-chartjs-2": "^5.2.0",
+        "react-icons": "^5.2.1"
     }
 }
