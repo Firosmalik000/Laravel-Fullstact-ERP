@@ -1,7 +1,6 @@
 import CustomButton from "@/Components/CustomButton";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
-import axios from "axios";
 
 export default function Pembelian({ auth, pembelians }) {
     console.log({ pembelians });

@@ -36,12 +36,7 @@ export default function Authenticated({ user, header, children }) {
                                 >
                                     Pembelian
                                 </NavLink>
-                                <NavLink
-                                    href={route("manager.users")}
-                                    active={route().current("manager.users")}
-                                >
-                                    User
-                                </NavLink>
+
                                 <NavLink
                                     href={route("status")}
                                     active={route().current("status")}
@@ -60,6 +55,16 @@ export default function Authenticated({ user, header, children }) {
                                 >
                                     Report
                                 </NavLink>
+                                {user.role === "manager" && (
+                                    <NavLink
+                                        href={route("manager.users")}
+                                        active={route().current(
+                                            "manager.users"
+                                        )}
+                                    >
+                                        User
+                                    </NavLink>
+                                )}
                             </div>
                         </div>
 

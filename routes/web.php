@@ -32,11 +32,17 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 // routes/web.php
+// Manager Area
+Route::middleware(['auth', 'managerMiddleware'])->group(function () {
+    Route::get('/manager/users', [UserController::class, 'index'])->name('manager.users');
+});
+
+
 Route::get('/staff/pembelian', [PembelianController::class, 'index'])->name('staff.pembelian');
 Route::get('/staff/pembelian/create', [PembelianController::class, 'create'])->name('staff.pembelian.create');
 Route::post('/staff/pembelian/save', [PembelianController::class, 'save'])->name('staff.pembelian.save');
 
-Route::get('/manager/users', [UserController::class, 'index'])->name('manager.users');
+
 
 Route::get('/status', [StatusController::class, 'index'])->name('status');
 Route::post('status/update-status/{id}', [StatusController::class, 'updateStatus'])->name('status.update-status');

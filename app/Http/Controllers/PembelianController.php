@@ -55,7 +55,7 @@ class PembelianController extends Controller
             DB::commit(); 
     
             session()->flash('success', 'Data Berhasil Tersimpan');
-            return redirect()->route('staff.pembelian');
+            return redirect()->route('status');
         } catch (\Exception $e) {
             DB::rollBack(); // Membatalkan transaksi jika ada kesalahan
             session()->flash('error', 'Data Gagal Tersimpan: ' . $e->getMessage());

@@ -33,12 +33,16 @@ class StatusController extends Controller
         DB::beginTransaction();
         
         try {
+            if (Auth::user()->role !== 'manager') {
+                session()->flash('error', 'Anda tidak memiliki izin untuk memperbarui status.');
+                return redirect()->route('dashboard');
+            }
+
             $status->update([
                 'status' => $request->status,
                 'updated_by' => Auth::id(),
             ]);
 
-          
             if ($status->status == 'Accepted') {
                 Gudang::create([
                     'status' => $request->status,
@@ -46,7 +50,6 @@ class StatusController extends Controller
                 ]);
             }
 
-      
             if ($status->status == 'Rejected' || $status->status == 'Accepted') {
                 Report::create([
                     'status' => $request->status,
@@ -57,7 +60,7 @@ class StatusController extends Controller
             DB::commit();
 
             session()->flash('success', 'Data Berhasil Tersimpan');
-            return redirect()->route('staff.pembelian');
+            return redirect()->route('report');
         } catch (Exception $e) {
             DB::rollBack();
             session()->flash('error', 'Status Gagal Diubah: ' . $e->getMessage());

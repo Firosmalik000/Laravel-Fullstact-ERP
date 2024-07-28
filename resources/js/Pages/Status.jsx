@@ -1,5 +1,6 @@
 import CustomButton from "@/Components/CustomButton";
-import DetailStatus from "@/Components/Table/DetailStatus";
+import DetailStatus from "@/Components/Drawer/DetailStatus";
+
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm } from "@inertiajs/react";
 import { useState, useEffect } from "react";
@@ -32,6 +33,7 @@ export default function Status({ auth, status }) {
         console.log("Detail updated:", detail);
     }, [detail]);
 
+    console.log({ auth });
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -74,12 +76,14 @@ export default function Status({ auth, status }) {
                                             >
                                                 Accepted By
                                             </th>
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3"
-                                            >
-                                                Action
-                                            </th>
+                                            {auth.user.role === "manager" && (
+                                                <th
+                                                    scope="col"
+                                                    className="px-6 py-3"
+                                                >
+                                                    Action
+                                                </th>
+                                            )}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -113,35 +117,38 @@ export default function Status({ auth, status }) {
                                                 <td className="px-6 py-4">
                                                     {sty.user?.name}
                                                 </td>
-                                                <td className="px-6 py-4">
-                                                    {sty.status ===
-                                                    "Pending" ? (
-                                                        <div className="flex gap-x-2 justify-center">
-                                                            <CustomButton
-                                                                title="Accept"
-                                                                className="bg-green-500 text-white px-2 py-1 rounded-[10px] transition duration-300 hover:bg-green-700"
-                                                                onClick={() =>
-                                                                    handleStatusChange(
-                                                                        sty.id,
-                                                                        "Accepted"
-                                                                    )
-                                                                }
-                                                            />
-                                                            <CustomButton
-                                                                title="Reject"
-                                                                className="bg-red-500 text-white px-2 py-1 rounded-[10px] transition duration-300 hover:bg-red-700"
-                                                                onClick={() =>
-                                                                    handleStatusChange(
-                                                                        sty.id,
-                                                                        "Rejected"
-                                                                    )
-                                                                }
-                                                            />
-                                                        </div>
-                                                    ) : (
-                                                        "-"
-                                                    )}
-                                                </td>
+                                                {auth.user.role ===
+                                                    "manager" && (
+                                                    <td className="px-6 py-4">
+                                                        {sty.status ===
+                                                        "Pending" ? (
+                                                            <div className="flex gap-x-2 justify-center">
+                                                                <CustomButton
+                                                                    title="Accept"
+                                                                    className="bg-green-500 text-white px-2 py-1 rounded-[10px] transition duration-300 hover:bg-green-700"
+                                                                    onClick={() =>
+                                                                        handleStatusChange(
+                                                                            sty.id,
+                                                                            "Accepted"
+                                                                        )
+                                                                    }
+                                                                />
+                                                                <CustomButton
+                                                                    title="Reject"
+                                                                    className="bg-red-500 text-white px-2 py-1 rounded-[10px] transition duration-300 hover:bg-red-700"
+                                                                    onClick={() =>
+                                                                        handleStatusChange(
+                                                                            sty.id,
+                                                                            "Rejected"
+                                                                        )
+                                                                    }
+                                                                />
+                                                            </div>
+                                                        ) : (
+                                                            "-"
+                                                        )}
+                                                    </td>
+                                                )}
                                             </tr>
                                         ))}
                                     </tbody>
@@ -149,14 +156,10 @@ export default function Status({ auth, status }) {
 
                                 {detail && (
                                     <>
-                                        <div className="my-5">
-                                            <h1 className="font-semibold text-xl">
-                                                Detail Pembelian
-                                            </h1>
-                                        </div>
                                         <DetailStatus
                                             items={detail.pembelian}
-                                            user={detail.user}
+                                            user={detail.pembelian.user}
+                                            onClose={() => setDetail(null)}
                                         />
                                     </>
                                 )}
